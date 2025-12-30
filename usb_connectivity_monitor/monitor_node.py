@@ -16,3 +16,16 @@ class MonitorNode(Node):
         self.declare_parameter('vendor_id', '')
         self.declare_parameter('product_id', '')
         self.declare_parameter('check_interval', 1.0)
+        
+        # Get parameters
+        self.vendor_id = str(self.get_parameter('vendor_id').value)
+        self.product_id = str(self.get_parameter('product_id').value)
+        self.interval = self.get_parameter('check_interval').get_parameter_value().double_value
+        
+        # Publisher
+        self.publisher_ = self.create_publisher(Bool, 'usb_connected', 10)
+        
+        # Timer
+        self.timer = self.create_timer(self.interval, self.check_connection)
+        
+        self.get_logger().info(f'Monitor Node Started. Target: {self.vendor_id}:{self.product_id}')
