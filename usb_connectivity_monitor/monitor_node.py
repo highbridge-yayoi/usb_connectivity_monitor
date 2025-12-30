@@ -29,3 +29,8 @@ class MonitorNode(Node):
         self.timer = self.create_timer(self.interval, self.check_connection)
         
         self.get_logger().info(f'Monitor Node Started. Target: {self.vendor_id}:{self.product_id}')
+
+    def check_connection(self):
+        msg = Bool()
+        msg.data = self.is_device_connected()
+        self.publisher_.publish(msg)
