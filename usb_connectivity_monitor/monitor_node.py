@@ -7,3 +7,12 @@ from rclpy.node import Node
 from std_msgs.msg import Bool
 import subprocess
 import re
+
+class MonitorNode(Node):
+    def __init__(self):
+        super().__init__('monitor_node')
+        
+        # Declare parameters
+        self.declare_parameter('vendor_id', '')
+        self.declare_parameter('product_id', '')
+        self.declare_parameter('check_interval', 1.0)
