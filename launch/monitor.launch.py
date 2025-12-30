@@ -21,4 +21,15 @@ def generate_launch_description():
             default_value='1.0',
             description='Interval in seconds between checks'),
             
+        Node(
+            package='usb_connectivity_monitor',
+            executable='monitor_node',
+            name='usb_connectivity_monitor',
+            output='screen',
+            parameters=[{
+                'vendor_id': LaunchConfiguration('vendor_id'),
+                'product_id': LaunchConfiguration('product_id'),
+                'check_interval': LaunchConfiguration('check_interval')
+            }]
+        )
     ])
