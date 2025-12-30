@@ -72,3 +72,17 @@ class MonitorNode(Node):
         except Exception as e:
             self.get_logger().error(f'An error occurred: {e}', throttle_duration_sec=10.0)
             return False
+
+def main(args=None):
+    rclpy.init(args=args)
+    node = MonitorNode()
+    try:
+        rclpy.spin(node)
+    except KeyboardInterrupt:
+        pass
+    finally:
+        node.destroy_node()
+        rclpy.shutdown()
+
+if __name__ == '__main__':
+    main()
